@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080c13">
+<title>星际突围 — 飞机大战</title><meta name="description" content="出击，穿越星海。支持键盘和触屏的二维飞机射击小游戏。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%237fffee' d='M32 3 39 30 58 46 38 42 32 59 26 42 6 46 25 30Z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<header><a class="brand" href="./" aria-label="星际突围首页"><span class="brand-mark">✦</span><span>星际突围<small>NEON FLIGHT / ARCADE</small></span></a><div class="header-right"><span class="online"><i></i> 飞行系统就绪</span><button id="sound" class="icon-button" aria-label="开启声音" title="开启声音">♪ <span>声音关</span></button></div></header>
+<main>
+<aside class="left-panel"><div class="eyebrow">MISSION 01 / DEEP SPACE</div><h1>穿越星海。<br><span>火力全开。</span></h1><p class="intro">一架战机，无尽星空。<br>在弹幕之间，找到你的航线。</p>
+<div class="panel-block"><h2><span>01</span> 驾驶指南</h2><div class="control-line"><span><kbd>←</kbd> <kbd>→</kbd></span><b>左右移动</b></div><div class="control-line"><span><kbd>A</kbd> <kbd>D</kbd></span><b>也可以移动</b></div><div class="control-line"><span><kbd>SPACE</kbd></span><b>释放冲击波</b></div><div class="control-line"><span><kbd>P</kbd> / <kbd>ESC</kbd></span><b>暂停 / 继续</b></div><p class="hint">自动开火 · 手机在战场内左右拖动</p></div>
+<div class="panel-block difficulty-block"><h2><span>02</span> 飞行难度</h2><div class="segmented" aria-label="飞行难度"><button data-mode="easy" aria-pressed="false">轻松</button><button data-mode="normal" class="active" aria-pressed="true">标准</button></div><p id="mode-help" class="hint">标准速度，迎接完整挑战。</p></div>
+<div class="system-note"><span class="tiny-dot"></span> 无需下载，即刻出击</div></aside>
+<section class="game-column" aria-label="飞机大战游戏">
+<div class="hud"><div><span class="label">SCORE / 得分</span><strong id="score">000000</strong></div><div class="hud-right"><span class="label">HULL / 机体</span><div id="lives" aria-label="剩余三格生命">◆ ◆ ◆</div></div></div>
+<div class="stage" id="stage">
+<canvas id="game" width="480" height="640" aria-label="飞机射击战场，方向键左右移动，自动射击"></canvas>
+<div class="stage-corners" aria-hidden="true"></div>
+<div class="stage-top"><span id="sector">SECTOR 01</span><button id="pause" aria-label="暂停游戏" title="暂停游戏" disabled>Ⅱ</button></div>
+<div id="boss-bar" class="boss-bar" hidden><span>敌方旗舰</span><div><i id="boss-health"></i></div></div>
+<div id="toast" role="status"></div>
+<div id="overlay" class="overlay"><div class="overlay-content"><div class="mission-tag" id="overlay-tag">准备好出发了吗？</div><div class="hero-plane" aria-hidden="true"><svg viewBox="0 0 140 150"><defs><linearGradient id="jet" x2="0" y2="1"><stop stop-color="#dafff8"/><stop offset="1" stop-color="#379d9b"/></linearGradient></defs><path class="flame" d="m62 117 8 30 8-30"/><path fill="url(#jet)" d="m70 9 10 55 43 44-39-9-7 23H63l-7-23-39 9 43-44Z"/><path fill="#0a242d" d="m70 34 6 38-6 13-6-13Z"/><path stroke="#9bfff0" fill="none" d="m27 102 33-26m53 26L80 76"/></svg></div><h2 id="overlay-title">星际突围</h2><p id="overlay-copy">左右移动，自动开火。<br>你的下一次高分，从这里开始。</p><div id="result" hidden></div><button id="start" class="primary">开始飞行 <span>↗</span></button><button id="restart" class="text-button" hidden>重新开始</button><p class="overlay-foot" id="overlay-foot">← → / A D 移动 · 触屏左右拖动</p></div></div>
+<div class="stage-bottom"><span id="weapon">AUTO FIRE / 自动射击</span><span id="wave">第 01 波</span></div>
+</div>
+<div class="under-stage"><span><i></i> <span id="flight-status">等待出击</span></span><button id="bomb" aria-label="冲击波，剩余两枚" disabled><span>✳</span> 冲击波 <b id="bomb-count">2</b><small>SPACE</small></button></div>
+<div class="touch-controls"><button id="move-left" aria-label="向左移动">←</button><span>拖动战机 · 躲避弹幕</span><button id="move-right" aria-label="向右移动">→</button></div>
+</section>
+<aside class="right-panel"><div class="record"><span class="eyebrow">PERSONAL BEST</span><div class="record-title">最高纪录 <span>↗</span></div><strong id="best">000000</strong><p>保存在当前浏览器</p></div><div class="panel-block supply-list"><h2><span>03</span> 战场补给</h2><div class="supply"><span class="supply-icon power">ϟ</span><div><b>三路火力</b><p>三路齐射，持续 12 秒</p></div></div><div class="supply"><span class="supply-icon shield">◇</span><div><b>能量护盾</b><p>抵挡一次伤害</p></div></div><div class="supply"><span class="supply-icon heal">+</span><div><b>机体修复</b><p>恢复一格生命</p></div></div></div><div class="tip"><span>FLIGHT TIP / 飞行提示</span><p>别只盯着敌机。<br>留意弹幕的空隙，<br>活下来才能飞得更远。</p><div class="tip-line"></div><small>每三波，敌方旗舰来袭。</small></div></aside>
+</main>
+<footer><span>BUILT FOR YOUR NEXT HIGH SCORE.</span><span>保持专注 · 享受飞行</span></footer>
+</div>
+<script src="game.js"></script>
+</body></html>
